@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private float Speed = 1f;
+    [SerializeField] private float speed = 1;
+    [SerializeField] GameObject Door;
     void Start()
     {
 
@@ -13,14 +13,18 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        var s = Input.GetAxis("Horizontal");
+        var k = Input.GetAxis("Vertical");
+        var a = Input.GetAxis("Jump");
+        var direction = new Vector3(s, a, k);
 
-
-       var a = Input.GetAxis("Horizontal");
-       var b = Input.GetAxis("Vertical");
-
-       var direction = new Vector3(a, 0, b);
-
-       transform.position = transform.position + Speed * direction * Time.deltaTime;
+        transform.position = transform.position + speed * direction * Time.deltaTime;
 
     }
+   void OnTriggerStay()
+   { 
+
+           Destroy(Door);
+        
+   }
 }
